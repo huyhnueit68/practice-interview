@@ -1,0 +1,31 @@
+
+.practice-sheet{
+    width: 100%;
+    height: 100%;
+
+    .practice-sheet__topbar {
+        width: 100%;
+        height: 3rem;
+        background-color: #e2e4e9;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 4px;
+        
+        .sheet__topbar--right {
+            height: 100%;
+        }
+
+        .sheet__topbar--right {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    .practice-sheet__boby {
+        width: 100%;
+        height: calc(100% - 3rem);
+    }
+}

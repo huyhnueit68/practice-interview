@@ -1,0 +1,34 @@
+
+.practice-dashboard{
+    width: 100%;
+    height: 100%;
+
+    .practice-dashboard__topbar {
+        width: 100%;
+        height: 3rem;
+        background-color: #efefef;
+    }
+
+    .practice-dashboard__body {
+        width: 100%;
+        height: calc(100% - 3rem);
+        overflow: auto;
+        padding: 24px;
+        background-color: #efefef88;
+        align-items: center;
+
+        .dashboard__body--box {
+            padding: 8px 8px 32px 8px;
+            border-radius: 5px;
+            background-color: #fff;
+            width: 100%;
+            height: 45%;
+            min-width: 30vw;
+            min-height: 35vh;
+
+            .box-full {
+                width: 100%;
+            }
+        }
+    }
+}
