@@ -196,6 +196,10 @@ namespace PracticeInterview.Controllers
                                     {
                                         entry.DateTime = dateValue; // Store as DateTime
                                     }
+                                    else
+                                    {
+                                        entry.DateTime = DateTime.MinValue; // Store as DateTime
+                                    }
                                 }
                                 else if (mappedHeader == nameof(DataEntry.MarketPrice))
                                 {
@@ -203,6 +207,10 @@ namespace PracticeInterview.Controllers
                                     if (decimal.TryParse(worksheet.Cells[row, col].Text, out var decimalValue))
                                     {
                                         entry.MarketPrice = decimalValue; // Store as decimal
+                                    }
+                                    else
+                                    {
+                                        entry.MarketPrice = decimal.MinValue;
                                     }
                                 }
                             }
