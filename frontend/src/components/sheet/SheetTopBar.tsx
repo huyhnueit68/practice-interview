@@ -5,11 +5,10 @@ import { Button, Input, Modal, message, Form, DatePicker, Upload } from 'antd';
 import { PlusOutlined, FileExcelOutlined, InboxOutlined } from '@ant-design/icons';
 import { setDataArray, DataEntry } from '../../stores/commonStore'; // Import the action to set data array
 import { RootState } from '../../stores/commonStore'; // Import the RootState type
-import dayjs from 'dayjs'; // Import dayjs for date formatting
 
 const { Dragger } = Upload;
 
-const SheetTopBar = () => {
+const SheetTopBar = ({ onSearch }: any) => { // Accept onSearch as a prop
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { Search } = Input;
@@ -21,11 +20,11 @@ const SheetTopBar = () => {
 
     /**
      * Handles the search functionality.
-     * @param e - The event object from the search input.
+     * @param value - The search input value.
      * CreatedBy: Harry (10.02.2024)
      */
-    const onSearch = (e: any) => {
-        // Handle search logic here
+    const handleSearch = (value: string) => {
+        onSearch(value); // Call the onSearch function passed from the parent component
     };
 
     /**
@@ -148,7 +147,12 @@ const SheetTopBar = () => {
                 {/* Additional content can go here */}
             </div>
             <div className='sheet__topbar--right'>
-                <Search className='mr-2' placeholder="Input search text" onSearch={(e) => onSearch(e)} style={{ width: 200 }} />
+                <Search
+                    className='mr-2'
+                    placeholder="Input search text"
+                    onSearch={handleSearch} // Use the handleSearch function
+                    style={{ width: 200 }}
+                />
                 <Button className='mr-2' type="primary" icon={<PlusOutlined />} onClick={handleAddNew}>
                     Add new
                 </Button>

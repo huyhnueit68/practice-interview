@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Device1 from '../../assets/images/device1.webp';
 import Device2 from '../../assets/images/device3.webp';
 import { useNavigate } from 'react-router-dom';
@@ -13,6 +13,7 @@ import dayjs from 'dayjs';
 
 const Sheet = () => {
     const navigate = useNavigate();
+    const gridRef = useRef<AgGridReact>(null);
     const dispatch = useDispatch();
     const dataArray = useSelector((state: RootState) => state.dataArray); // Get the current data array from the store
     const [editingEntry, setEditingEntry] = useState<DataEntry | null>(null); // State to hold the entry being edited
@@ -87,6 +88,18 @@ const Sheet = () => {
         });
         setIsModalVisible(true); // Show the modal
     };
+
+    /**
+     * Handles the search functionality.
+     * @param value - The search input value.
+     * CreatedBy: Harry (10.02.2025)
+     */
+    const onSearch = useCallback((value: string) => {
+        gridRef.current!.api.setGridOption(
+            "quickFilterText",
+            value,
+        );
+    }, []);
 
     /**
      * Defines the column structure for the data grid.
@@ -176,11 +189,12 @@ const Sheet = () => {
 
     return (
         <div className="practice-sheet">
-            <SheetTopBar />
+            <SheetTopBar onSearch={onSearch} /> {/* Pass the onSearch function to SheetTopBar */}
             <div className='practice-sheet__boby ag-theme-alpine'>
                 <AgGridReact
                     animateRows={true}
-                    rowData={dataArray}
+                    ref={gridRef}
+                    rowData={dataArray} // Use filtered data or original data
                     columnDefs={columnDefs}
                     suppressRowHoverHighlight={true}
                 />
