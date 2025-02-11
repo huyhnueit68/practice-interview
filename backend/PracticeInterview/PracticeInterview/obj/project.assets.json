@@ -1578,11 +1578,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\pham_quanghuy\\Desktop\\WHProject\\InterviewProject\\backend\\PracticeInterview\\PracticeInterview\\PracticeInterview.csproj",
+      "projectUniqueName": "C:\\Users\\pham_quanghuy\\Desktop\\WHProject\\InterviewProject\\practice-interview\\backend\\PracticeInterview\\PracticeInterview\\PracticeInterview.csproj",
       "projectName": "PracticeInterview",
-      "projectPath": "C:\\Users\\pham_quanghuy\\Desktop\\WHProject\\InterviewProject\\backend\\PracticeInterview\\PracticeInterview\\PracticeInterview.csproj",
+      "projectPath": "C:\\Users\\pham_quanghuy\\Desktop\\WHProject\\InterviewProject\\practice-interview\\backend\\PracticeInterview\\PracticeInterview\\PracticeInterview.csproj",
       "packagesPath": "C:\\Users\\pham_quanghuy\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\pham_quanghuy\\Desktop\\WHProject\\InterviewProject\\backend\\PracticeInterview\\PracticeInterview\\obj\\",
+      "outputPath": "C:\\Users\\pham_quanghuy\\Desktop\\WHProject\\InterviewProject\\practice-interview\\backend\\PracticeInterview\\PracticeInterview\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\pham_quanghuy\\AppData\\Roaming\\NuGet\\NuGet.Config",

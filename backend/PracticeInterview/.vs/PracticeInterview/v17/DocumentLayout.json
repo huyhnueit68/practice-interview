@@ -1,13 +1,13 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\pham_quanghuy\\Desktop\\WHProject\\InterviewProject\\backend\\PracticeInterview\\",
+  "WorkspaceRootPath": "C:\\Users\\pham_quanghuy\\Desktop\\WHProject\\InterviewProject\\practice-interview\\backend\\PracticeInterview\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6A47511D-F579-417A-BDAB-25248EAFA923}|PracticeInterview\\PracticeInterview.csproj|c:\\users\\pham_quanghuy\\desktop\\whproject\\interviewproject\\backend\\practiceinterview\\practiceinterview\\controllers\\practicecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{6A47511D-F579-417A-BDAB-25248EAFA923}|PracticeInterview\\PracticeInterview.csproj|c:\\users\\pham_quanghuy\\desktop\\whproject\\interviewproject\\practice-interview\\backend\\practiceinterview\\practiceinterview\\controllers\\practicecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6A47511D-F579-417A-BDAB-25248EAFA923}|PracticeInterview\\PracticeInterview.csproj|solutionrelative:practiceinterview\\controllers\\practicecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6A47511D-F579-417A-BDAB-25248EAFA923}|PracticeInterview\\PracticeInterview.csproj|c:\\users\\pham_quanghuy\\desktop\\whproject\\interviewproject\\backend\\practiceinterview\\practiceinterview\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{6A47511D-F579-417A-BDAB-25248EAFA923}|PracticeInterview\\PracticeInterview.csproj|C:\\Users\\pham_quanghuy\\Desktop\\WHProject\\InterviewProject\\practice-interview\\backend\\PracticeInterview\\practiceinterview\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6A47511D-F579-417A-BDAB-25248EAFA923}|PracticeInterview\\PracticeInterview.csproj|solutionrelative:practiceinterview\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -52,11 +52,11 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "PracticeController.cs",
-              "DocumentMoniker": "C:\\Users\\pham_quanghuy\\Desktop\\WHProject\\InterviewProject\\backend\\PracticeInterview\\PracticeInterview\\Controllers\\PracticeController.cs",
+              "DocumentMoniker": "C:\\Users\\pham_quanghuy\\Desktop\\WHProject\\InterviewProject\\practice-interview\\backend\\PracticeInterview\\PracticeInterview\\Controllers\\PracticeController.cs",
               "RelativeDocumentMoniker": "PracticeInterview\\Controllers\\PracticeController.cs",
-              "ToolTip": "C:\\Users\\pham_quanghuy\\Desktop\\WHProject\\InterviewProject\\backend\\PracticeInterview\\PracticeInterview\\Controllers\\PracticeController.cs",
+              "ToolTip": "C:\\Users\\pham_quanghuy\\Desktop\\WHProject\\InterviewProject\\practice-interview\\backend\\PracticeInterview\\PracticeInterview\\Controllers\\PracticeController.cs",
               "RelativeToolTip": "PracticeInterview\\Controllers\\PracticeController.cs",
-              "ViewState": "AQIAAIgAAAAAAAAAAAAIwKMAAAABAAAA",
+              "ViewState": "AQIAAKsAAAAAAAAAAAAcwLoAAAAqAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-10T10:29:29.586Z",
               "EditorCaption": ""
@@ -65,14 +65,13 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\pham_quanghuy\\Desktop\\WHProject\\InterviewProject\\backend\\PracticeInterview\\PracticeInterview\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\pham_quanghuy\\Desktop\\WHProject\\InterviewProject\\practice-interview\\backend\\PracticeInterview\\PracticeInterview\\Program.cs",
               "RelativeDocumentMoniker": "PracticeInterview\\Program.cs",
-              "ToolTip": "C:\\Users\\pham_quanghuy\\Desktop\\WHProject\\InterviewProject\\backend\\PracticeInterview\\PracticeInterview\\Program.cs",
+              "ToolTip": "C:\\Users\\pham_quanghuy\\Desktop\\WHProject\\InterviewProject\\practice-interview\\backend\\PracticeInterview\\PracticeInterview\\Program.cs",
               "RelativeToolTip": "PracticeInterview\\Program.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-10T10:29:26.664Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-10T10:29:26.664Z"
             }
           ]
         },

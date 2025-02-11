@@ -1,0 +1,12 @@
+# Ignore Visual Studio temporary files
+backend/PracticeInterview/.vs
+backend\PracticeInterview\PracticeInterview\bin
+be_netcore/BeApplication/bin/
+be_netcore/BeApplication/obj/
+bin
+obj
+.vs
+fets/dist/
+be/.vscode
+be/.idea
+fe/dist/

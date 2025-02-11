@@ -21,6 +21,12 @@ namespace PracticeInterview.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// API upload file data
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        /// CreatedBy: Harry (10.02.2024)
         [HttpPost("upload-excel")]
         public async Task<IActionResult> UploadExcel(IFormFile file)
         {
@@ -56,101 +62,168 @@ namespace PracticeInterview.Controllers
             }
         }
 
+        /// <summary>
+        /// Func handel raw file
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <returns></returns>
+        /// <exception cref="InvalidDataException"></exception>
+        /// CreatedBy: Harry (10.02.2024)
         private async Task<List<DataEntry>> ReadCsvAsync(Stream stream)
         {
             var data = new List<DataEntry>();
-            using (var reader = new StreamReader(stream))
+
+            try
             {
-                var headerLine = await reader.ReadLineAsync();
-                if (headerLine == null)
+                using (var reader = new StreamReader(stream))
                 {
-                    throw new InvalidDataException("The CSV file is empty.");
-                }
-
-                var headers = headerLine.Split(',');
-                var headerMap = CreateHeaderMap();
-
-                while (!reader.EndOfStream)
-                {
-                    var line = await reader.ReadLineAsync();
-                    var values = line.Split(',');
-                    var entry = new DataEntry();
-
-                    for (int i = 0; i < headers.Length; i++)
+                    var headerLine = await reader.ReadLineAsync();
+                    if (headerLine == null)
                     {
-                        var header = headers[i].Trim();
-                        if (headerMap.TryGetValue(header, out var mappedHeader))
+                        throw new InvalidDataException("The CSV file is empty.");
+                    }
+
+                    var headers = headerLine.Split(',');
+                    var headerMap = CreateHeaderMap();
+
+                    while (!reader.EndOfStream)
+                    {
+                        var line = await reader.ReadLineAsync();
+                        var values = line.Split(',');
+                        var entry = new DataEntry();
+
+                        for (int i = 0; i < headers.Length; i++)
                         {
-                            if (mappedHeader == nameof(DataEntry.DateTime))
+                            var header = headers[i].Trim();
+                            if (headerMap.TryGetValue(header, out var mappedHeader))
                             {
-                                // Parse the dateTime value
-                                if (DateTime.TryParse(values.Length > i ? values[i] : null, out var dateValue))
+                                if (mappedHeader == nameof(DataEntry.DateTime))
                                 {
-                                    entry.DateTime = dateValue; // Store as DateTime
+                                    // Define the expected date formats
+                                    var dateFormats = new[]
+                                    {
+                                    "dd/MM/yyyy HH:mm", // Format for "13/01/2017 00:30"
+                                    "dd/MM/yyyy",       // Format for "13/01/2017"
+                                    "d/M/yyyy HH:mm",   // Format for "10/1/2017 0:30" (single-digit day/month and hour)
+                                    "d/M/yyyy",         // Format for "10/1/2017" (single-digit day/month)
+                                    "MM/dd/yyyy HH:mm", // Format for "01/10/2017 00:30" (if needed)
+                                    "MM/dd/yyyy",       // Format for "01/10/2017" (if needed)
+                                    "yyyy-MM-dd HH:mm", // Format for "2017-01-10 00:30" (ISO format)
+                                    "yyyy-MM-dd"        // Format for "2017-01-10" (ISO format)
+                                };
+
+                                    // Try parsing the date-time value with multiple formats
+                                    if (values.Length > i && DateTime.TryParseExact(values[i], dateFormats,
+                                        System.Globalization.CultureInfo.InvariantCulture,
+                                        System.Globalization.DateTimeStyles.None, out var dateValue))
+                                    {
+                                        entry.DateTime = dateValue; // Store as DateTime
+                                    }
+                                    else
+                                    {
+                                        // Fallback to TryParse for more flexibility
+                                        if (values.Length > i && DateTime.TryParse(values[i],
+                                            System.Globalization.CultureInfo.InvariantCulture,
+                                            System.Globalization.DateTimeStyles.None, out var fallbackDateValue))
+                                        {
+                                            entry.DateTime = fallbackDateValue; // Store as DateTime
+                                        }
+                                        else
+                                        {
+                                            // Handle the case where parsing fails
+                                            entry.DateTime = DateTime.MinValue; // or some other default value
+                                        }
+                                    }
                                 }
-                            }
-                            else if (mappedHeader == nameof(DataEntry.MarketPrice))
-                            {
-                                // Parse the marketPrice value
-                                if (decimal.TryParse(values.Length > i ? values[i] : null, out var decimalValue))
+                                else if (mappedHeader == nameof(DataEntry.MarketPrice))
                                 {
-                                    entry.MarketPrice = decimalValue; // Store as decimal
+                                    // Parse the marketPrice value
+                                    if (decimal.TryParse(values.Length > i ? values[i] : null, out var decimalValue))
+                                    {
+                                        entry.MarketPrice = decimalValue; // Store as decimal
+                                    }
                                 }
                             }
                         }
+                        data.Add(entry);
                     }
-                    data.Add(entry);
                 }
             }
+            catch (Exception ce)
+            {
+                Console.WriteLine(ce.Message);
+            }
+
             return data;
         }
 
+        /// <summary>
+        /// Func read excel
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <returns></returns>
+        /// <exception cref="InvalidDataException"></exception>
+        /// CreatedBy: Harry (10.02.2024)
         private async Task<List<DataEntry>> ReadExcelAsync(Stream stream)
         {
             var data = new List<DataEntry>();
-            using (var package = new ExcelPackage(stream))
+
+            try
             {
-                var worksheet = package.Workbook.Worksheets.FirstOrDefault();
-                if (worksheet == null)
+                using (var package = new ExcelPackage(stream))
                 {
-                    throw new InvalidDataException("The Excel file is empty.");
-                }
-
-                var rowCount = worksheet.Dimension.Rows;
-                var headerMap = CreateHeaderMap();
-
-                for (int row = 2; row <= rowCount; row++) // Assuming the first row is the header
-                {
-                    var entry = new DataEntry();
-                    for (int col = 1; col <= worksheet.Dimension.Columns; col++)
+                    var worksheet = package.Workbook.Worksheets.FirstOrDefault();
+                    if (worksheet == null)
                     {
-                        var header = worksheet.Cells[1, col].Text.Trim(); // Get the header
-                        if (headerMap.TryGetValue(header, out var mappedHeader))
+                        throw new InvalidDataException("The Excel file is empty.");
+                    }
+
+                    var rowCount = worksheet.Dimension.Rows;
+                    var headerMap = CreateHeaderMap();
+
+                    for (int row = 2; row <= rowCount; row++) // Assuming the first row is the header
+                    {
+                        var entry = new DataEntry();
+                        for (int col = 1; col <= worksheet.Dimension.Columns; col++)
                         {
-                            if (mappedHeader == nameof(DataEntry.DateTime))
+                            var header = worksheet.Cells[1, col].Text.Trim(); // Get the header
+                            if (headerMap.TryGetValue(header, out var mappedHeader))
                             {
-                                // Parse the dateTime value
-                                if (DateTime.TryParse(worksheet.Cells[row, col].Text, out var dateValue))
+                                if (mappedHeader == nameof(DataEntry.DateTime))
                                 {
-                                    entry.DateTime = dateValue; // Store as DateTime
+                                    // Parse the dateTime value
+                                    if (DateTime.TryParse(worksheet.Cells[row, col].Text, out var dateValue))
+                                    {
+                                        entry.DateTime = dateValue; // Store as DateTime
+                                    }
                                 }
-                            }
-                            else if (mappedHeader == nameof(DataEntry.MarketPrice))
-                            {
-                                // Parse the marketPrice value
-                                if (decimal.TryParse(worksheet.Cells[row, col].Text, out var decimalValue))
+                                else if (mappedHeader == nameof(DataEntry.MarketPrice))
                                 {
-                                    entry.MarketPrice = decimalValue; // Store as decimal
+                                    // Parse the marketPrice value
+                                    if (decimal.TryParse(worksheet.Cells[row, col].Text, out var decimalValue))
+                                    {
+                                        entry.MarketPrice = decimalValue; // Store as decimal
+                                    }
                                 }
                             }
                         }
+                        data.Add(entry); // Add the entry to the list
                     }
-                    data.Add(entry); // Add the entry to the list
                 }
             }
+            catch (Exception ce)
+            {
+                Console.Write(ce.Message);
+            }
+
             return data;
         }
 
+        /// <summary>
+        /// Func create map file title
+        /// </summary>
+        /// <returns></returns>
+        /// CreatedBy: Harry (10.02.2024)
         private Dictionary<string, string> CreateHeaderMap()
         {
             return new Dictionary<string, string>
