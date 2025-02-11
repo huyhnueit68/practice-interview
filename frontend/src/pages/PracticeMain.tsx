@@ -1,5 +1,5 @@
 // src/pages/PracticeMain.tsx
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { HomeOutlined, FileExcelOutlined, UserOutlined } from '@ant-design/icons';
 
@@ -14,7 +14,7 @@ interface SidebarItem {
 
 /**
  * Page default init page (sidebar, topbar)
- * CreatedBy: PQ Huy (10.02.2025)
+ * CreatedBy: Harry (10.02.2025)
  */
 const PracticeMain: React.FC = () => {
     const location = useLocation(); // Get the current location
@@ -34,6 +34,13 @@ const PracticeMain: React.FC = () => {
             },
         ];
     }, []);
+
+    // Effect to navigate to the default route if no route is selected
+    useEffect(() => {
+        if (location.pathname === '/') { // Check if the current path is the root
+            navigate(sideBar[0].url); // Navigate to the first sidebar item's URL
+        }
+    }, [location.pathname, sideBar]);
 
     return (
         <div className="practice w-full h-full">

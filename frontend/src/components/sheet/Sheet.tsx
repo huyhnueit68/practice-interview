@@ -19,17 +19,31 @@ const Sheet = () => {
     const [form] = Form.useForm(); // Create a form instance
     const [isModalVisible, setIsModalVisible] = useState(false);
 
+    /**
+     * Deletes a device entry from the data array.
+     * @param data - The data object containing the entry to be deleted.
+     * CreatedBy: Harry (10.02.2025)
+     */
     const onDeleteDevice = (data: any) => {
         const updatedDataArray = dataArray.filter(entry => entry.dateTime !== data.data.dateTime);
         dispatch(setDataArray(updatedDataArray)); // Update the store with the new data array
         message.success('Deleted successfully!'); // Show success message
     }
 
+    /**
+     * Closes the modal for editing an entry and clears the editing entry.
+     * CreatedBy: Harry (10.02.2025)
+     */
     const handleCancel = () => {
         setIsModalVisible(false); // Close the modal
         setEditingEntry(null); // Clear the editing entry
     };
 
+    /**
+     * Handles the submission of the edit entry form.
+     * Validates the form fields and updates the data entry in the Redux store.
+     * CreatedBy: Harry (10.02.2025)
+     */
     const handleOk = async () => {
         try {
             const values = await form.validateFields(); // Validate form fields
@@ -60,6 +74,11 @@ const Sheet = () => {
         }
     };
 
+    /**
+     * Prepares the entry for editing by setting the form values and opening the modal.
+     * @param record - The record object containing the entry to be edited.
+     * CreatedBy: Harry (10.02.2025)
+     */
     const handleEdit = (record: any) => {
         setEditingEntry(record.data); // Set the entry to be edited
         form.setFieldsValue({
@@ -70,8 +89,8 @@ const Sheet = () => {
     };
 
     /**
-     * Column sheet
-     * CreatedBy: PQ Huy (10.02.2025)
+     * Defines the column structure for the data grid.
+     * CreatedBy: Harry (10.02.2025)
      */
     const columnDefs: any = useMemo(() => {
         return [

@@ -1,46 +1,88 @@
-# Getting Started with Create React App
+# README Practice Interview for Data Visualization Web Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Overview
 
-## Available Scripts
+This web application is designed to read data from a provided CSV file (`sampleSheet.csv`) and display the data in both graphical and tabular formats. The application is built using the Microsoft stack, specifically .NET Core for the backend, and utilizes CSS and JavaScript for the frontend. 
 
-In the project directory, you can run:
+### Features
 
-### `npm start`
+The application meets the following requirements:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- **Data Reading**: Reads data from the provided CSV file.
+- **Graphical Representation**: Displays the data series in a suitable graph format using charting libraries.
+- **Sortable and Filterable Tables**: The tables displaying the data are sortable and filterable for better user experience.
+- **Statistical Display**: A separate component displays:
+  - Minimum and maximum values from the data series.
+  - Average of the series.
+  - Most expensive hour window (i.e., two consecutive half-hourly values) for the data range provided.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Technologies Used
 
-### `npm test`
+- **Backend**: .NET Core (C#)
+- **Frontend**: React, Ant Design, SCSS
+- **Data Visualization**: Charting libraries (e.g., Chart.js, AG Grid)
+- **Data Format**: CSV
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Getting Started
 
-### `npm run build`
+#### Prerequisites
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- [.NET Core SDK](https://dotnet.microsoft.com/download) (version 5.0 or later)
+- [Node.js](https://nodejs.org/) (for React and frontend dependencies)
+- A code editor (e.g., Visual Studio, Visual Studio Code)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### Step-by-Step Guide to Build and Run the Project
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. **Clone the Repository**:
+   ```bash
+   git clone <repository-url>
+   cd <repository-directory>
+   ```
 
-### `npm run eject`
+2. **Navigate to the Backend Directory**:
+   ```bash
+   cd backend
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+3. **Restore NuGet Packages**:
+   ```bash
+   dotnet restore
+   ```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+4. **Run the Backend Application**:
+   ```bash
+   dotnet run
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+5. **Navigate to the Frontend Directory**:
+   Open a new terminal window and navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+6. **Install Frontend Dependencies**:
+   ```bash
+   npm install
+   ```
 
-## Learn More
+7. **Run the Frontend Application**:
+   ```bash
+   npm start
+   ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+8. **Access the Application**:
+   Open your web browser and go to `http://localhost:3000` to view the application.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Example Data
+
+The application uses a sample data file named `sampleSheet.csv`. Ensure this file is placed in the correct directory as specified in the application code.
+
+### Notes for End Users
+
+- Ensure that the CSV file is formatted correctly with the expected columns (e.g., Date and Market Price).
+- The application provides visual feedback for data loading and processing.
+- Use the provided filters and sorting options in the table for better data analysis.
+
+### Author
+
+This application was developed by **Pham Quang Huy (Harry)**. If you have any questions or need further assistance, feel free to reach out.

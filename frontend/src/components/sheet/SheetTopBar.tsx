@@ -17,16 +17,30 @@ const SheetTopBar = () => {
     const [isUploadModalVisible, setIsUploadModalVisible] = useState(false);
     const [form] = Form.useForm(); // Create a form instance
     const dataArray = useSelector((state: RootState) => state.dataArray); // Get the current data array from the store
+    const [fileList, setFileList] = useState([]); // State to manage uploaded files
 
+    /**
+     * Handles the search functionality.
+     * @param e - The event object from the search input.
+     * CreatedBy: Harry (10.02.2024)
+     */
     const onSearch = (e: any) => {
         // Handle search logic here
     };
 
-
+    /**
+     * Opens the modal for adding a new entry.
+     * CreatedBy: Harry (10.02.2024)
+     */
     const handleAddNew = () => {
         setIsModalVisible(true); // Show the modal
     };
 
+    /**
+     * Handles the submission of the new entry form.
+     * Validates the form fields and dispatches the new data entry to the Redux store.
+     * CreatedBy: Harry (10.02.2024)
+     */
     const handleOk = async () => {
         try {
             const marketPrices = await form.validateFields(); // Validate form fields
@@ -52,23 +66,55 @@ const SheetTopBar = () => {
         }
     };
 
+    /**
+     * Closes the modal for adding a new entry.
+     * CreatedBy: Harry (10.02.2024)
+     */
     const handleCancel = () => {
         setIsModalVisible(false); // Close the modal
     };
 
+    /**
+     * Opens the modal for uploading a file.
+     * CreatedBy: Harry (10.02.2024)
+     */
     const handleUploadModal = () => {
         setIsUploadModalVisible(true); // Show the upload modal
     };
 
+    /**
+     * Closes the upload modal and clears the file list.
+     * CreatedBy: Harry (10.02.2024)
+     */
     const handleUploadCancel = () => {
         setIsUploadModalVisible(false); // Close the upload modal
+        setFileList([]); // Clear the file list when the modal is closed
     };
 
+    /**
+     * Handles the file upload process, including validation of file type,
+     * sending the file to the server, and updating the Redux store with new data.
+     * CreatedBy: Harry (10.02.2024)
+     */
     const uploadProps = {
         name: 'file',
         multiple: false,
         accept: '.xlsx, .xls, .csv', // Allow CSV files as well
+        fileList, // Set the file list to the state
+        onChange: (info: any) => {
+            setFileList(info.fileList); // Update the file list state
+        },
         customRequest: async ({ file, onSuccess, onError }: any) => {
+            // Validate file type
+            const validExtensions = ['.xlsx', '.xls', '.csv'];
+            const fileExtension = file.name.slice((file.name.lastIndexOf(".") - 1 >>> 0) + 2);
+
+            if (!validExtensions.includes(`.${fileExtension}`)) {
+                message.error('Invalid file format. Please upload an Excel or CSV file.');
+                onError(new Error('Invalid file format.'));
+                return; // Exit early if the file format is invalid
+            }
+
             const formData = new FormData();
             formData.append('file', file);
 
@@ -81,9 +127,10 @@ const SheetTopBar = () => {
                 if (response.ok) {
                     const newData = await response.json(); // Get the new data from the response
                     dispatch(setDataArray(newData)); // Replace the existing data with the new data
-                    message.success(`${file.name} file uploaded successfully.`);
+                    message.success(`Record number: ${newData?.length} has Uploaded successfully.`);
                     onSuccess(file);
                     setIsUploadModalVisible(false); // Close the upload modal on success
+                    setFileList([]); // Clear the file list after successful upload
                 } else {
                     message.error(`${file.name} file upload failed.`);
                     onError(new Error('Upload failed.'));
@@ -91,14 +138,6 @@ const SheetTopBar = () => {
             } catch (error) {
                 message.error(`${file.name} file upload failed.`);
                 onError(error);
-            }
-        },
-        onChange(info: any) {
-            const { status } = info.file;
-            if (status === 'done') {
-                // This will not be triggered again since we handle success in customRequest
-            } else if (status === 'error') {
-                message.error(`${info.file.name} file upload failed.`);
             }
         },
     };
