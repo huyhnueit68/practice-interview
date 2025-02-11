@@ -1,6 +1,6 @@
 # Ignore Visual Studio temporary files
-backend/PracticeInterview/.vs
-backend\PracticeInterview\PracticeInterview\bin
+backend/PracticeInterview/.vs/
+backend/PracticeInterview/PracticeInterview/bin/
 be_netcore/BeApplication/bin/
 be_netcore/BeApplication/obj/
 bin
