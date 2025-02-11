@@ -166,6 +166,9 @@ namespace PracticeInterview.Controllers
         /// CreatedBy: Harry (10.02.2024)
         private async Task<List<DataEntry>> ReadExcelAsync(Stream stream)
         {
+            // Set the license context for EPPlus
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial; // or LicenseContext.Commercial if applicable
+
             var data = new List<DataEntry>();
 
             try

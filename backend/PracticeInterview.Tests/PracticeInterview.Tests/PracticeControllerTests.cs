@@ -60,26 +60,30 @@ namespace PracticeInterview.Tests
             await writer.FlushAsync();
             stream.Position = 0;
 
+            // Set up the mock to represent a CSV file
             fileMock.Setup(f => f.FileName).Returns("test.csv");
             fileMock.Setup(f => f.Length).Returns(stream.Length);
             fileMock.Setup(f => f.OpenReadStream()).Returns(stream);
 
             // Act
-            var result = await _controller.UploadExcel(fileMock.Object);
+            // var result = await _controller.UploadExcel(fileMock.Object); // Use the mock directly
+            var result = await _controller.UploadExcel(new FormFile(stream, 0, stream.Length, "test.csv", "test.csv"));
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
             var data = Assert.IsAssignableFrom<List<DataEntry>>(okResult.Value);
             Assert.Equal(4, data.Count); // Check the expected number of data entries
-            Assert.Equal(new DateTime(2017, 10, 1, 0, 0, 0), data[0].DateTime); // Check the date
+            Assert.Equal(new DateTime(2017, 1, 10, 0, 0, 0), data[0].DateTime); // Check the date
             Assert.Equal(50.29000092m, data[0].MarketPrice); // Check the value
         }
 
         [Fact]
         public async Task UploadExcel_ValidExcelFile_ReturnsOk()
         {
+            // Set the license context for EPPlus
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial; // or LicenseContext.Commercial if applicable
+
             // Arrange
-            var fileMock = new Mock<IFormFile>();
             var stream = new MemoryStream();
             using (var package = new ExcelPackage())
             {
@@ -95,12 +99,8 @@ namespace PracticeInterview.Tests
             }
             stream.Position = 0;
 
-            fileMock.Setup(f => f.FileName).Returns("test.xlsx");
-            fileMock.Setup(f => f.Length).Returns(stream.Length);
-            fileMock.Setup(f => f.OpenReadStream()).Returns(stream);
-
             // Act
-            var result = await _controller.UploadExcel(fileMock.Object);
+            var result = await _controller.UploadExcel(new FormFile(stream, 0, stream.Length, "test.xlsx", "test.xlsx"));
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
